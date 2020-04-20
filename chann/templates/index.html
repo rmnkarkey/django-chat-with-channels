@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-state-machine/2.0.0/state-machine.min.js"></script> -->
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+            var socket = io.connect('http://localhost:8000/messages/');
+            
+            socket.on('connect',function(){
+               socket.send('user has connected') ;
+            });
+
+            socket.on('message',function(msg){
+                $('#mes').append('<li>'+msg+'</li>');
+            });
+            
+            $('#sendbutton').on('click',function(){
+                socket.send($('#mymsg').val());
+                $('#mymsg').val('');
+            });
+
+        });
+    </script>
+
+
+<ul id ="mes"></ul>
+<input type="text" name="" id="mymsg">
+<button id="sendbutton"> send </button>
+</body>
+</html>
