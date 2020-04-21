@@ -19,5 +19,5 @@ from chann.views import *
 # from chann.consumers import ChatConsumer
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<int:id>/',index),
+    path('<int:id>/<int:idTwo>/<int:idThree>/',index),
 ]

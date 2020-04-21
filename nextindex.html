@@ -10,7 +10,7 @@
 </head>
 <body>
     <script>
-        var socket = new WebSocket('ws://localhost:8000/1/5/13');
+        var socket = new WebSocket('ws://localhost:8000/1/5/16');
         
         socket.onmessage = function(e){
             var ulid = document.getElementById('mes');
@@ -36,7 +36,6 @@
     </script>
 
 
-<p id="con"></p>
 <ul id ="mes"></ul>
 <input type="text" id="mymsg">
 <button id="sendbutton"> send </button>

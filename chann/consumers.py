@@ -7,10 +7,14 @@ from channels.layers import get_channel_layer
 
 
 class ChatConsumer(AsyncConsumer):
-
+    
     async def websocket_connect(self,event):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+
+        self.room_name = self.scope['url_route']['kwargs']['room_id']
+        self.ids = self.scope['url_route']['kwargs']['users_id']
+        self.category_id = self.scope['url_route']['kwargs']['category_name_id']
+
+        self.room_group_name = 'chat_{}{}{}'.format(self.category_id,self.room_name,self.ids)
 
         await self.channel_layer.group_add(
             self.room_group_name,
