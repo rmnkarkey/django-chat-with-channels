@@ -9,20 +9,26 @@
     <title>Document</title>
 </head>
 <body>
+        Name: <input type="text" id="username"><br>
     <script>
         var socket = new WebSocket('ws://localhost:8000/1/5/13');
         
         socket.onmessage = function(e){
             var ulid = document.getElementById('mes');
             var sokk = JSON.parse(e.data);
-            $("#mes").append('<li>'+sokk.message+"</li>");
+            $("#mes").append('<li>'+sokk.username+": "+sokk.message+"</li>");
         }
         
         socket.onopen = function(e){
             $('#sendbutton').click(function(e){     
                 var msgdata = document.getElementById('mymsg').value;
+                var msgusername = document.getElementById('username').value;
+
                 var msgText = msgdata;
-                socket.send(msgText);
+                var msgUser = msgusername;
+                var datas = new Array(msgUser,msgText);
+                socket.send(datas);
+                document.getElementById('mymsg').value = "";
             });
         }
 
@@ -38,7 +44,8 @@
 
 <p id="con"></p>
 <ul id ="mes"></ul>
-<input type="text" id="mymsg">
+Message: <input type="text" id="mymsg">
+
 <button id="sendbutton"> send </button>
 
 </body>

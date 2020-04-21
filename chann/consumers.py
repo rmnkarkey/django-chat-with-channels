@@ -30,14 +30,16 @@ class ChatConsumer(AsyncConsumer):
 
     async def websocket_receive(self,event):
         font_text = event.get('text')
+        splited_data = font_text.split(',')        
         myResponse ={
-            'message':font_text
+            'message':splited_data[1],
+            'username':splited_data[0]
         }
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type':'chat_message',
-                'message':json.dumps(myResponse)
+                'message':json.dumps(myResponse),
             }
         ) 
     
